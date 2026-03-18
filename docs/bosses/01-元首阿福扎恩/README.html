@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>元首阿福扎恩 - 攻略卡片</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      background: #0D0D1A;
+      color: #E8E8E8;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ========== 顶部紧凑区 ========== */
+    .header {
+      background: linear-gradient(180deg, #252540 0%, #1A1A2E 100%);
+      padding: 16px;
+      border-bottom: 2px solid #3A3A5A;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .boss-info { flex: 1; }
+
+    .boss-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 4px;
+    }
+
+    .raid-tag {
+      display: inline-block;
+      background: #FF6B00;
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .fight-meta {
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .meta-item { text-align: center; }
+    .meta-label { font-size: 11px; color: #888899; }
+    .meta-value { font-size: 14px; font-weight: bold; color: #FF6B00; }
+
+    /* ========== 口诀大字报（第一屏核心） ========== */
+    .mantra {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 107, 0, 0.1) 100%);
+      padding: 20px 16px;
+      margin: 12px;
+      border-radius: 12px;
+      border: 2px solid #FFD700;
+      text-align: center;
+    }
+
+    .mantra-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .mantra-line { padding: 4px 0; }
+
+    /* ========== 卡片通用样式 ========== */
+    .card {
+      background: #1A1A2E;
+      border-radius: 12px;
+      margin: 12px;
+      overflow: hidden;
+      border: 1px solid #3A3A5A;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      background: #252540;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-icon { font-size: 18px; }
+    .card-title { font-size: 16px; font-weight: bold; color: #FF6B00; }
+    .card-body { padding: 12px 14px; }
+
+    /* ========== 核心思路 ========== */
+    .core-idea-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #E8E8E8;
+    }
+
+    /* ========== 高亮关键词 ========== */
+    .highlight-danger {
+      color: #FF4444;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
+    }
+
+    .highlight-warning {
+      color: #FF6B00;
+      font-weight: bold;
+    }
+
+    /* ========== 技能卡片（堆叠模式） ========== */
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      border-left: 3px solid #888899;
+    }
+
+    /* 危险等级配色 */
+    .skill-item.skill-danger {
+      border-left-color: #FF4444;
+      background: rgba(255, 68, 68, 0.1);
+    }
+    .skill-item.skill-danger .skill-name { color: #FF4444; }
+
+    .skill-item.skill-warning {
+      border-left-color: #FF6B00;
+      background: rgba(255, 107, 0, 0.1);
+    }
+    .skill-item.skill-warning .skill-name { color: #FF6B00; }
+
+    .skill-item.skill-normal {
+      border-left-color: #4FC3F7;
+      background: rgba(79, 195, 247, 0.1);
+    }
+    .skill-item.skill-normal .skill-name { color: #4FC3F7; }
+
+    .skill-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #FF6B00;
+      margin-bottom: 4px;
+    }
+
+    .skill-response {
+      font-size: 14px;
+      color: #7CFC00;
+      padding-left: 8px;
+      border-left: 2px solid #7CFC00;
+    }
+
+    /* ========== 职责分工（直接展示，无标签页） ========== */
+    .role-section {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3A3A5A;
+    }
+    .role-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .role-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .duty-list { list-style: none; }
+    .duty-list li {
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 5px 0 5px 16px;
+      position: relative;
+      border-bottom: 1px solid rgba(58, 58, 90, 0.3);
+    }
+    .duty-list li:last-child { border-bottom: none; }
+    .duty-list li::before {
+      content: "▸";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ========== 机制要点 ========== */
+    .phase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phase-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .phase-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* 机制标签 */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .tag-core { background: #FF4444; }
+    .tag-share { background: #9C27B0; }
+    .tag-target { background: #FF6B00; }
+    .tag-switch { background: #4CAF50; }
+    .tag-dodge { background: #2196F3; }
+    .tag-adds { background: #607D8B; }
+
+    .phase-points { list-style: none; }
+    .phase-points li {
+      font-size: 13px;
+      line-height: 1.4;
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+    .phase-points li::before {
+      content: "•";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ========== 底部 ========== */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #888899;
+      border-top: 1px solid #3A3A5A;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部紧凑区 -->
+  <div class="header">
+    <div class="header-row">
+      <div class="boss-info">
+        <div class="boss-name">元首阿福扎恩</div>
+        <span class="raid-tag">虚空尖塔 · 开门首领</span>
+      </div>
+      <div class="fight-meta">
+        <div class="meta-item">
+          <div class="meta-label">类型</div>
+          <div class="meta-value">优先小怪</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">嗜血</div>
+          <div class="meta-value">开怪</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 口诀大字报（第一屏核心） -->
+  <div class="mantra">
+    <div class="mantra-content">
+      <span class="mantra-line">三格连成线就灭</span>
+      <span class="mantra-line">分担圈里炸大怪</span>
+      <span class="mantra-line">小怪拉开别靠近</span>
+      <span class="mantra-line">五六层数换坦快</span>
+    </div>
+  </div>
+
+  <!-- 核心思路卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💡</span>
+      <span class="card-title">核心思路</span>
+    </div>
+    <div class="card-body">
+      <div class="core-idea-text">阻止 BOSS 完全占领三块场地，否则直接<span class="highlight-danger">团灭</span>。</div>
+    </div>
+  </div>
+
+  <!-- 关键技能卡片（危险等级配色） -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">⚡</span>
+      <span class="card-title">关键技能</span>
+    </div>
+    <div class="card-body">
+      <div class="skill-list">
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚠️ 暗影进军</div>
+          <div class="skill-response">3x3网格机制，三连占领即<span class="highlight-danger">团灭</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔥 幽影塌缩</div>
+          <div class="skill-response">分担圈，移动到大怪身上<span class="highlight-danger">秒杀</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">💫 黑化创伤</div>
+          <div class="skill-response">坦克debuff，层数高者<span class="highlight-warning">吸引小怪</span>，5~6层换坦</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🚨 占领场地</div>
+          <div class="skill-response">大怪占领格子，用分担圈炸掉</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 机制要点卡片（添加标签） -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📋</span>
+      <span class="card-title">机制要点</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            暗影进军 - 占领场地
+          </div>
+          <ul class="phase-points">
+            <li>三个大怪在3格中生成并读条</li>
+            <li>读条后生成传送门，该区域被"占领"</li>
+            <li>3个被占领区域连成直线（横/竖/斜）即<span class="highlight-danger">团灭</span></li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-share">分担</span>
+            幽影塌缩 - 只点坦克
+          </div>
+          <ul class="phase-points">
+            <li><span class="highlight-warning">只点坦克</span>，是分担圈，需全团帮忙分担</li>
+            <li>坦克移动到大怪旁边，用分担圈炸掉大怪</li>
+            <li>击中大怪可瞬间击杀，但会触发激怒</li>
+            <li>两次幽影塌缩连续施放，每次应击中一个小怪</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dodge">躲避</span>
+            <span class="tag tag-switch">转火</span>
+            占领场地技能
+          </div>
+          <ul class="phase-points">
+            <li>BOSS 随机丢出大怪造成AOE，<span class="highlight-warning">躲开</span></li>
+            <li>被占领场地周围出现小怪，拉住转火A掉</li>
+            <li>小怪残血会爬向占领场地回血，减速A掉</li>
+            <li>举盾小怪给其他小怪减伤，换个方向打断或拉开</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-adds">小怪</span>
+            小怪机制
+          </div>
+          <ul class="phase-points">
+            <li>小怪会锁定黑化创伤层数最高的坦克</li>
+            <li><span class="highlight-danger">小怪靠近Boss无敌</span>，必须拉开</li>
+            <li>打断并击杀深渊虚空塑形者</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 职责分工卡片（直接展示） -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">👥</span>
+      <span class="card-title">职责分工</span>
+    </div>
+    <div class="card-body">
+      <div class="role-section">
+        <div class="role-title">🛡️ 坦克</div>
+        <ul class="duty-list">
+          <li>把 BOSS 拉走，别站在被占领场地附近</li>
+          <li>用幽影塌缩击中大怪，防止三连</li>
+          <li>幽影塌缩、小怪出现、黑化创伤层数高时换坦</li>
+          <li><span class="highlight-warning">英雄模式</span>：将小怪拉离 Boss</li>
+          <li>小怪和 BOSS 分开拉，双T在小怪与BOSS间换嘲</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    攻略：奶个爪爪 · Midnight S1 · 2026-03-19
+  </div>
+
+</body>
+</html>
