@@ -69,16 +69,16 @@
     }
 
     .mantra-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 20px;
-      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 18px;
       font-weight: bold;
       color: #FFD700;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
-    .mantra-line { padding: 4px 0; }
+    .mantra-line { padding: 2px 0; }
 
     /* ========== 卡片通用样式 ========== */
     .card {
@@ -116,10 +116,7 @@
       text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
     }
 
-    .highlight-warning {
-      color: #FF6B00;
-      font-weight: bold;
-    }
+    strong { color: #FFD700; }
 
     /* ========== 技能卡片（堆叠模式） ========== */
     .skill-list {
@@ -244,7 +241,6 @@
     .tag-target { background: #FF6B00; }
     .tag-switch { background: #4CAF50; }
     .tag-dodge { background: #2196F3; }
-    .tag-adds { background: #607D8B; }
 
     .phase-points { list-style: none; }
     .phase-points li {
@@ -278,12 +274,16 @@
     <div class="header-row">
       <div class="boss-info">
         <div class="boss-name">弗拉希乌斯</div>
-        <span class="raid-tag">虚空尖塔 · 深渊掠食者</span>
+        <span class="raid-tag">虚空尖塔</span>
       </div>
       <div class="fight-meta">
         <div class="meta-item">
           <div class="meta-label">类型</div>
-          <div class="meta-value">优先小怪</div>
+          <div class="meta-value">优先击杀小怪</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">关键分配</div>
+          <div class="meta-value">无</div>
         </div>
         <div class="meta-item">
           <div class="meta-label">嗜血</div>
@@ -293,13 +293,12 @@
     </div>
   </div>
 
-  <!-- 口诀大字报（第一屏核心） -->
+  <!-- 口诀大字报 -->
   <div class="mantra">
     <div class="mantra-content">
-      <span class="mantra-line">两侧墙壁先打破</span>
-      <span class="mantra-line">坦克踩圈接砸地</span>
-      <span class="mantra-line">小怪风筝墙上杀</span>
-      <span class="mantra-line">吐息扫来躲两侧</span>
+      <span class="mantra-line">拍完地板出墙壁，虫子盯人贴墙去</span>
+      <span class="mantra-line">分批击杀别着急，炸完墙壁躲吐息</span>
+      <span class="mantra-line">拉人很痛要注意，治疗大招别吝惜</span>
     </div>
   </div>
 
@@ -310,11 +309,11 @@
       <span class="card-title">核心思路</span>
     </div>
     <div class="card-body">
-      <div class="core-idea-text">摧毁两侧水晶墙后，站到 BOSS 嘴两侧安全位置躲避横扫吐息。</div>
+      <div class="core-idea-text"><strong>摧毁两侧水晶墙后，站到 BOSS 嘴两侧安全位置躲避横扫吐息。</strong></div>
     </div>
   </div>
 
-  <!-- 关键技能卡片（危险等级配色） -->
+  <!-- 关键技能卡片 -->
   <div class="card">
     <div class="card-header">
       <span class="card-icon">⚡</span>
@@ -322,31 +321,72 @@
     </div>
     <div class="card-body">
       <div class="skill-list">
-        <div class="skill-item skill-danger">
-          <div class="skill-name">⚠️ 虚空吐息</div>
-          <div class="skill-response">横扫全场，<span class="highlight-danger">必须躲开</span>，站嘴两侧安全区</div>
-        </div>
-        <div class="skill-item skill-warning">
-          <div class="skill-name">🔥 晶体喷发</div>
-          <div class="skill-response">坦克踩分摊圈，穿过爆炸波纹进入安全区</div>
-        </div>
-        <div class="skill-item skill-warning">
-          <div class="skill-name">🔥 虚空水晶</div>
-          <div class="skill-response">在墙上击杀 Blistereep 打破墙壁</div>
-        </div>
-        <div class="skill-item skill-warning">
-          <div class="skill-name">🔥 砸地板</div>
-          <div class="skill-response">坦克分摊+易伤，<span class="highlight-warning">一层一换T</span></div>
+        <div class="skill-item skill-normal">
+          <div class="skill-name">晶体喷发</div>
+          <div class="skill-response">坦克踩圈，穿过爆炸波纹</div>
         </div>
         <div class="skill-item skill-normal">
-          <div class="skill-name">💫 群体拉人+击退</div>
-          <div class="skill-response">小技能，正常应对</div>
+          <div class="skill-name">虚空水晶</div>
+          <div class="skill-response">在墙上击杀爆爬虫</div>
+        </div>
+        <div class="skill-item skill-normal">
+          <div class="skill-name">散逸寄生虫</div>
+          <div class="skill-response">被盯者带虫贴墙</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">⚠️ 气泡爆裂</div>
+          <div class="skill-response">分批击杀，治疗交大招</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">⚠️ 始源咆哮</div>
+          <div class="skill-response">伤害很痛，治疗注意</div>
+        </div>
+        <div class="skill-item skill-danger">
+          <div class="skill-name">💀 虚空吐息</div>
+          <div class="skill-response">摧毁墙壁后站到两侧安全区</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 机制要点卡片（添加标签） -->
+  <!-- 职责分工卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">👥</span>
+      <span class="card-title">职责分工</span>
+    </div>
+    <div class="card-body">
+      <div class="role-section">
+        <div class="role-title">🛡️ 坦克</div>
+        <ul class="duty-list">
+          <li><strong>换坦节奏</strong>：T1 吃 1/2 次分摊，T2 吃 3/4 次</li>
+          <li>分摊后 T 易伤，所以每人连续吃 2 次后换</li>
+          <li><strong>马桶战</strong>：T 不要离开近战位</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">⚔️ 输出</div>
+        <ul class="duty-list">
+          <li><strong>被盯的人把爆爬虫引到墙壁位置</strong></li>
+          <li><strong>击杀小怪不能太快</strong>：左右两边分批击杀，错开爆炸</li>
+          <li>避免多只虫子同时爆炸导致减员</li>
+          <li>注意自己是否上一轮被点过，提前预判</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">💚 治疗</div>
+        <ul class="duty-list">
+          <li><strong>关键抬血时机</strong>：</li>
+          <li>　• 爆爬虫爆炸时（全团AOE）</li>
+          <li>　• 始源咆哮拉人时（全团物理伤害，很痛）</li>
+          <li>提前安排减伤轮次，覆盖爬虫爆炸和拉人</li>
+          <li>注意被气泡爆裂击中的 50% 易伤 debuff</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 机制要点卡片 -->
   <div class="card">
     <div class="card-header">
       <span class="card-icon">📋</span>
@@ -357,60 +397,49 @@
         <div class="phase-item">
           <div class="phase-name">
             <span class="tag tag-share">分担</span>
-            晶体喷发
+            晶体喷发 (CRYSTALLINE ERUPTION)
           </div>
           <ul class="phase-points">
-            <li>大型棕色圈需要坦克去踩（分摊）</li>
-            <li>环形波纹从落点向外扩散，<span class="highlight-warning">跨过波纹进入安全区</span></li>
-            <li>水晶墙由 BOSS 砸 T 地板后出现</li>
+            <li>一圈环形波纹会从落点慢慢向外扩散</li>
+            <li>当面前的波纹爆炸时，跨过波纹进入安全区</li>
+            <li>水晶墙是由 BOSS 打 T 的砸地板之后出现的</li>
           </ul>
         </div>
-
-        <div class="phase-item">
-          <div class="phase-name">
-            <span class="tag tag-switch">转火</span>
-            <span class="tag tag-target">点名</span>
-            虚空水晶
-          </div>
-          <ul class="phase-points">
-            <li>在每堵墙上击杀 1 只 Blistereep 打破墙</li>
-            <li><span class="highlight-warning">英雄模式</span>：需要 2 只 Blistereep</li>
-            <li>Blistereep 会锁定随机玩家，需要风筝并击杀</li>
-          </ul>
-        </div>
-
         <div class="phase-item">
           <div class="phase-name">
             <span class="tag tag-core">核心</span>
-            <span class="tag tag-dodge">躲避</span>
-            虚空吐息
+            虚空水晶 (VOID CRYSTALS)
           </div>
           <ul class="phase-points">
-            <li>BOSS 满能量大招，吐息<span class="highlight-danger">横扫全场</span></li>
-            <li>观察 Boss 确定吐息从哪一边开始</li>
-            <li>摧毁两侧墙壁后，站到<span class="highlight-danger">嘴两侧安全位置</span></li>
-            <li>随吐息移动到场地的另一边</li>
+            <li><strong>拍完4轮地板后</strong>，BOSS 往场上砸蓝水，刷 <strong>5 只爆爬虫</strong></li>
+            <li>在每堵墙上击杀 2 只爆爬虫来打破墙（有容错）</li>
+            <li><strong>英雄模式</strong>: 需要 2 只爆爬虫炸同一堵墙</li>
           </ul>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 职责分工卡片（直接展示） -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-icon">👥</span>
-      <span class="card-title">职责分工</span>
-    </div>
-    <div class="card-body">
-      <div class="role-section">
-        <div class="role-title">🛡️ 坦克</div>
-        <ul class="duty-list">
-          <li>一名坦克负责每个循环的前两次分摊</li>
-          <li>之后换坦，直到下一个循环开始</li>
-          <li><span class="highlight-warning">断桥机制</span>：原地砸地板，T接伤害后易伤，一层一换</li>
-          <li><span class="highlight-warning">马桶战</span>：T 不要离开近战位</li>
-        </ul>
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-target">点名</span>
+            爆爬虫 (BLISTREEP)
+          </div>
+          <ul class="phase-points">
+            <li>爆爬虫 <strong>没有仇恨表</strong>，刷出来就盯人</li>
+            <li>固定 <strong>1坦 + 4任意</strong></li>
+            <li><strong>上一轮被点过的人，下一轮不会被点</strong></li>
+            <li>被盯死亡 → 爆爬虫换目标</li>
+          </ul>
+        </div>
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dodge">躲避</span>
+            虚空吐息 (VOID BREATH)
+          </div>
+          <ul class="phase-points">
+            <li>BOSS 满能量大招，吐息横扫全场</li>
+            <li>观察 Boss 确定吐息从哪一边开始</li>
+            <li>大团摧毁两侧墙壁后，站到嘴两侧安全位置</li>
+            <li>移动到场地的另一边</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

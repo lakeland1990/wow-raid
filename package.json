@@ -8,6 +8,7 @@
     "generate": "node .claude/skills/wow-onepage/scripts/generate-html.js",
     "screenshot": "node scripts/screenshot.js",
     "build": "node scripts/build-all.js",
+    "build:gh": "node scripts/build-gh-pages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

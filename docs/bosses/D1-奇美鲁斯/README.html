@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>奇美鲁斯 (Chimaerus) - 攻略卡片</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      background: #0D0D1A;
+      color: #E8E8E8;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ========== 顶部紧凑区 ========== */
+    .header {
+      background: linear-gradient(180deg, #252540 0%, #1A1A2E 100%);
+      padding: 16px;
+      border-bottom: 2px solid #3A3A5A;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .boss-info { flex: 1; }
+
+    .boss-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 4px;
+    }
+
+    .raid-tag {
+      display: inline-block;
+      background: #FF6B00;
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .fight-meta {
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .meta-item { text-align: center; }
+    .meta-label { font-size: 11px; color: #888899; }
+    .meta-value { font-size: 14px; font-weight: bold; color: #FF6B00; }
+
+    /* ========== 口诀大字报（第一屏核心） ========== */
+    .mantra {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 107, 0, 0.1) 100%);
+      padding: 20px 16px;
+      margin: 12px;
+      border-radius: 12px;
+      border: 2px solid #FFD700;
+      text-align: center;
+    }
+
+    .mantra-content {
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.8;
+    }
+
+    /* ========== 卡片通用样式 ========== */
+    .card {
+      background: #1A1A2E;
+      border-radius: 12px;
+      margin: 12px;
+      overflow: hidden;
+      border: 1px solid #3A3A5A;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      background: #252540;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-icon { font-size: 18px; }
+    .card-title { font-size: 16px; font-weight: bold; color: #FF6B00; }
+    .card-body { padding: 12px 14px; }
+
+    /* ========== 核心思路 ========== */
+    .core-idea-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #E8E8E8;
+    }
+
+    /* ========== 高亮关键词 ========== */
+    .highlight-danger {
+      color: #FF4444;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
+    }
+
+    /* ========== 技能卡片（堆叠模式） ========== */
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      border-left: 3px solid #888899;
+    }
+
+    /* 危险等级配色 */
+    .skill-item.skill-danger {
+      border-left-color: #FF4444;
+      background: rgba(255, 68, 68, 0.1);
+    }
+    .skill-item.skill-danger .skill-name { color: #FF4444; }
+
+    .skill-item.skill-warning {
+      border-left-color: #FF6B00;
+      background: rgba(255, 107, 0, 0.1);
+    }
+    .skill-item.skill-warning .skill-name { color: #FF6B00; }
+
+    .skill-item.skill-normal {
+      border-left-color: #4FC3F7;
+      background: rgba(79, 195, 247, 0.1);
+    }
+    .skill-item.skill-normal .skill-name { color: #4FC3F7; }
+
+    .skill-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #FF6B00;
+      margin-bottom: 4px;
+    }
+
+    .skill-response {
+      font-size: 14px;
+      color: #7CFC00;
+      padding-left: 8px;
+      border-left: 2px solid #7CFC00;
+    }
+
+    /* ========== 职责分工（直接展示，无标签页） ========== */
+    .role-section {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3A3A5A;
+    }
+    .role-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .role-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .duty-list { list-style: none; }
+    .duty-list li {
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 5px 0 5px 16px;
+      position: relative;
+      border-bottom: 1px solid rgba(58, 58, 90, 0.3);
+    }
+    .duty-list li:last-child { border-bottom: none; }
+    .duty-list li::before {
+      content: "▸";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ========== 机制要点 ========== */
+    .phase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phase-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .phase-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* 机制标签 */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .tag-core { background: #FF4444; }
+    .tag-share { background: #9C27B0; }
+    .tag-target { background: #FF6B00; }
+    .tag-switch { background: #4CAF50; }
+    .tag-dodge { background: #2196F3; }
+    .tag-dispel { background: #E91E63; }
+
+    .phase-points { list-style: none; }
+    .phase-points li {
+      font-size: 13px;
+      line-height: 1.4;
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+    .phase-points li::before {
+      content: "•";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ========== 场地标记表格 ========== */
+    .marker-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .marker-table th {
+      background: #252540;
+      color: #FFD700;
+      padding: 8px;
+      text-align: left;
+    }
+    .marker-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #3A3A5A;
+    }
+    .marker-table tr:last-child td { border-bottom: none; }
+    .marker-icon {
+      font-size: 16px;
+      margin-right: 4px;
+    }
+
+    /* ========== 开荒重点 ========== */
+    .key-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255, 68, 68, 0.1);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border-left: 3px solid #FF4444;
+    }
+    .key-point:last-child { margin-bottom: 0; }
+    .key-point-title {
+      color: #FFD700;
+      font-weight: bold;
+      min-width: 80px;
+    }
+    .key-point-desc {
+      color: #E8E8E8;
+      font-size: 13px;
+    }
+
+    /* ========== 底部 ========== */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #888899;
+      border-top: 1px solid #3A3A5A;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部紧凑区 -->
+  <div class="header">
+    <div class="header-row">
+      <div class="boss-info">
+        <div class="boss-name">奇美鲁斯 (Chimaerus)</div>
+        <span class="raid-tag">幽梦裂隙 (The Dreamrift)</span>
+      </div>
+      <div class="fight-meta">
+        <div class="meta-item">
+          <div class="meta-label">类型</div>
+          <div class="meta-value">内/外场分边</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">分配</div>
+          <div class="meta-value">两组轮换</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">嗜血</div>
+          <div class="meta-value">开怪</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 口诀大字报 -->
+  <div class="mantra">
+    <div class="mantra-content">
+      两组轮换进内场<br>
+      破盾打怪送外场<br>
+      白圈找水等驱散<br>
+      大饼三角跟着走
+    </div>
+  </div>
+
+  <!-- 核心思路卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💡</span>
+      <span class="card-title">核心思路</span>
+    </div>
+    <div class="card-body">
+      <div class="core-idea-text">分团轮换进内场打盾，外场转火清小怪，白圈点名消水。</div>
+    </div>
+  </div>
+
+  <!-- 关键技能卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">⚡</span>
+      <span class="card-title">关键技能</span>
+    </div>
+    <div class="card-body">
+      <div class="skill-list">
+
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚠️ BOSS 飞天</div>
+          <div class="skill-response">吃掉所有小怪<span class="highlight-danger">回血增伤</span>，必须尽快清完小怪</div>
+        </div>
+
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚠️ 腐蚀毁灭</div>
+          <div class="skill-response">龙喷横扫场地，<span class="highlight-danger">躲避</span>直线区域</div>
+        </div>
+
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔶 外场小怪</div>
+          <div class="skill-response">破盾后从内场出来，第一时间<span class="highlight-danger">转火击杀</span>，吃控制</div>
+        </div>
+
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔶 吞噬瘴气</div>
+          <div class="skill-response">白圈点名，站<span class="highlight-danger">金水最多处</span>等驱散，不能秒驱</div>
+        </div>
+
+        <div class="skill-item skill-normal">
+          <div class="skill-name">🔹 艾兰之尘 (Upheaval)</div>
+          <div class="skill-response">蓝方块集合分担，进入内场 40 秒</div>
+        </div>
+
+        <div class="skill-item skill-normal">
+          <div class="skill-name">🔹 内场小怪</div>
+          <div class="skill-response">打破 20W 护盾，在蓝方块附近击杀</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- P1 机制要点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📋</span>
+      <span class="card-title">P1 阶段</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            分组轮换
+          </div>
+          <ul class="phase-points">
+            <li>全团分两组，每组配 DK 拉怪</li>
+            <li>一组场外，一组蓝方块分担进内场</li>
+            <li>两组轮换，进内场后 90 秒不可再吃分担</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-switch">内场</span>
+            内场任务 (40秒)
+          </div>
+          <ul class="phase-points">
+            <li>第一时间击破小怪盾</li>
+            <li>在<span class="highlight-danger">蓝方块附近击杀</span>，让金水集中</li>
+            <li>打完小怪转火 BOSS</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-target">外场</span>
+            外场任务
+          </div>
+          <ul class="phase-points">
+            <li>内场小怪破盾后出场走向 BOSS</li>
+            <li><span class="highlight-danger">第一时间转火打掉</span></li>
+            <li>小怪吃控制，T 根据大怪位置调整站位</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dispel">点名</span>
+            白圈消水
+          </div>
+          <ul class="phase-points">
+            <li>被点名者离开人群，找<span class="highlight-danger">金水最多处</span></li>
+            <li>站定后奶妈驱散，<span class="highlight-danger">不能秒驱</span></li>
+            <li>驱散后炸掉金水清场</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 机制要点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔥</span>
+      <span class="card-title">P2 阶段</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            阶段转换
+          </div>
+          <ul class="phase-points">
+            <li>两次进内场后转入 P2</li>
+            <li>BOSS 飞到台子上（无敌）</li>
+            <li>满场都是水，召唤大量小怪</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dodge">走位</span>
+            大饼 → 三角
+          </div>
+          <ul class="phase-points">
+            <li><span class="highlight-danger">大饼集合</span>引导龙喷</li>
+            <li>随后集体移动到<span class="highlight-danger">三角</span></li>
+            <li>龙喷留下直线污染和小怪，集合处理</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 场地标记 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📍</span>
+      <span class="card-title">场地标记</span>
+    </div>
+    <div class="card-body">
+      <table class="marker-table">
+        <tr>
+          <th>标记</th>
+          <th>位置</th>
+          <th>用途</th>
+        </tr>
+        <tr>
+          <td><span class="marker-icon">🔵</span>蓝方块</td>
+          <td>场中央</td>
+          <td>分担进内场 / 内场小怪集合</td>
+        </tr>
+        <tr>
+          <td><span class="marker-icon">🟠</span>大饼</td>
+          <td>P2 起点</td>
+          <td>集合引导龙喷</td>
+        </tr>
+        <tr>
+          <td><span class="marker-icon">🟢</span>三角</td>
+          <td>P2 目标</td>
+          <td>引完喷吐后移动目标</td>
+        </tr>
+        <tr>
+          <td><span class="marker-icon">⚪</span>白圈</td>
+          <td>指定区域</td>
+          <td>点名消水站位</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 职责分工卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">👥</span>
+      <span class="card-title">职责分工</span>
+    </div>
+    <div class="card-body">
+
+      <div class="role-section">
+        <div class="role-title">🛡️ 坦克</div>
+        <ul class="duty-list">
+          <li>将 Boss 坦克在边缘</li>
+          <li>艾兰之尘时换坦</li>
+          <li>拉住小怪在远离 Boss 位置</li>
+          <li>根据大怪刷新位置调整站位</li>
+        </ul>
+      </div>
+
+      <div class="role-section">
+        <div class="role-title">💚 治疗</div>
+        <ul class="duty-list">
+          <li><span class="highlight-danger">25秒/次</span> 全团 AOE + 12秒后续掉血</li>
+          <li>治疗压力极大</li>
+          <li>白圈点名到位后再驱散</li>
+        </ul>
+      </div>
+
+      <div class="role-section">
+        <div class="role-title">⚔️ 输出</div>
+        <ul class="duty-list">
+          <li>内场：快速破盾，蓝方块附近击杀</li>
+          <li>外场：第一时间转火小怪</li>
+          <li>小怪吃控制，DK 拉怪减速</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 开荒重点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🎯</span>
+      <span class="card-title">开荒核心重点</span>
+    </div>
+    <div class="card-body">
+      <div class="key-point">
+        <div class="key-point-title">轮换节奏</div>
+        <div class="key-point-desc">P1 两组进出场必须有序，内场打盾速度决定外场压力</div>
+      </div>
+      <div class="key-point">
+        <div class="key-point-title">消水管理</div>
+        <div class="key-point-desc">白圈点名必须精准覆盖金水，到位后驱散清场，不能乱放水</div>
+      </div>
+      <div class="key-point">
+        <div class="key-point-title">P2 位移</div>
+        <div class="key-point-desc">大饼 → 三角步调一致，避免被龙喷封死走位空间</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    攻略：奶个爪爪 · Midnight S1 · 2026-03-19
+  </div>
+
+</body>
+</html>

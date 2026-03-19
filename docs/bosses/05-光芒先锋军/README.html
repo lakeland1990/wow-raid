@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>光芒先锋军 (光盲先锋军) - 攻略卡片</title>
+  <title>光芒先锋军 - 攻略卡片</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -56,12 +56,12 @@
 
     .meta-item { text-align: center; }
     .meta-label { font-size: 11px; color: #888899; }
-    .meta-value { font-size: 14px; font-weight: bold; color: #FF6B00; }
+    .meta-value { font-size: 13px; font-weight: bold; color: #FF6B00; }
 
-    /* ========== 口诀大字报（第一屏核心） ========== */
+    /* ========== 口诀大字报 ========== */
     .mantra {
       background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 107, 0, 0.1) 100%);
-      padding: 20px 16px;
+      padding: 16px;
       margin: 12px;
       border-radius: 12px;
       border: 2px solid #FFD700;
@@ -71,8 +71,8 @@
     .mantra-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px 20px;
-      font-size: 20px;
+      gap: 8px 16px;
+      font-size: 18px;
       font-weight: bold;
       color: #FFD700;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -104,19 +104,34 @@
 
     /* ========== 核心思路 ========== */
     .core-idea-text {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.6;
       color: #E8E8E8;
+    }
+
+    .core-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+    .core-list li {
+      font-size: 14px;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+    .core-list li::before {
+      content: "▸";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
     }
 
     /* ========== 高亮关键词 ========== */
     .highlight-danger {
       color: #FF4444;
       font-weight: bold;
-      text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
     }
 
-    /* ========== 技能卡片（堆叠模式） ========== */
+    /* ========== 技能卡片 ========== */
     .skill-list {
       display: flex;
       flex-direction: column;
@@ -130,7 +145,6 @@
       border-left: 3px solid #888899;
     }
 
-    /* 后处理：危险等级配色 */
     .skill-item.skill-danger {
       border-left-color: #FF4444;
       background: rgba(255, 68, 68, 0.1);
@@ -163,7 +177,7 @@
       border-left: 2px solid #7CFC00;
     }
 
-    /* ========== 职责分工（直接展示，无标签页） ========== */
+    /* ========== 职责分工 ========== */
     .role-section {
       margin-bottom: 14px;
       padding-bottom: 12px;
@@ -201,57 +215,18 @@
       left: 0;
     }
 
-    /* ========== 机制要点 ========== */
-    .phase-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .phase-item {
-      background: rgba(58, 58, 90, 0.3);
+    /* ========== Boss 分区标题 ========== */
+    .boss-section {
+      background: rgba(255, 107, 0, 0.1);
       border-radius: 8px;
-      padding: 10px 12px;
+      padding: 8px 12px;
+      margin: 12px 0 8px 0;
+      border-left: 3px solid #FFD700;
     }
-
-    .phase-name {
-      font-size: 14px;
+    .boss-section-title {
+      font-size: 16px;
       font-weight: bold;
       color: #FFD700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    /* 后处理：机制标签 */
-    .tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
-      color: #fff;
-    }
-    .tag-core { background: #FF4444; }
-    .tag-share { background: #9C27B0; }
-    .tag-target { background: #FF6B00; }
-    .tag-switch { background: #4CAF50; }
-    .tag-dodge { background: #2196F3; }
-
-    .phase-points { list-style: none; }
-    .phase-points li {
-      font-size: 13px;
-      line-height: 1.4;
-      padding: 3px 0 3px 14px;
-      position: relative;
-    }
-    .phase-points li::before {
-      content: "•";
-      color: #FF6B00;
-      position: absolute;
-      left: 0;
     }
 
     /* ========== 底部 ========== */
@@ -271,171 +246,212 @@
   <div class="header">
     <div class="header-row">
       <div class="boss-info">
-        <div class="boss-name">光芒先锋军 (光盲先锋军)</div>
-        <span class="raid-tag">虚空尖塔</span>
+        <div class="boss-name">光芒先锋军</div>
+        <span class="raid-tag">虚空尖塔 · 5号Boss</span>
       </div>
       <div class="fight-meta">
-        
-          <div class="meta-item">
-            <div class="meta-label">类型</div>
-            <div class="meta-value">三目标</div>
-          </div>
-        
-          <div class="meta-item">
-            <div class="meta-label">关键分配</div>
-            <div class="meta-value">分摊组</div>
-          </div>
-        
-          <div class="meta-item">
-            <div class="meta-label">嗜血</div>
-            <div class="meta-value">开怪</div>
-          </div>
-        
+        <div class="meta-item">
+          <div class="meta-label">类型</div>
+          <div class="meta-value">三目标议会</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">嗜血</div>
+          <div class="meta-value">P3阶段</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- 口诀大字报（第一屏核心） -->
-  
+  <!-- 口诀大字报 -->
   <div class="mantra">
     <div class="mantra-content">
-      <span class="mantra-line">三骑血量要接近\n满能拉走别吃圈\n天锤分担看大小\n审判换嘲别忘记\n打盾打断两不误</span>
+      <span class="mantra-line">三骑血量要均衡</span>
+      <span class="mantra-line">换坦核心黄蓝换</span>
+      <span class="mantra-line">防骑飞盾躲直线</span>
+      <span class="mantra-line">惩骑分担躲转锤</span>
+      <span class="mantra-line">奶骑平心破盾打</span>
     </div>
   </div>
-  
 
   <!-- 核心思路卡片 -->
-  
   <div class="card">
     <div class="card-header">
       <span class="card-icon">💡</span>
       <span class="card-title">核心思路</span>
     </div>
     <div class="card-body">
-      <div class="core-idea-text">**三名圣骑士不共享血量，需要同时击杀（任意 BOSS 死亡，其余 BOSS 增伤 30%）。**</div>
-    </div>
-  </div>
-  
-
-  <!-- 关键技能卡片（堆叠模式，待后处理添加危险等级） -->
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="card-icon">⚡</span>
-      <span class="card-title">关键技能</span>
-    </div>
-    <div class="card-body">
-      <div class="skill-list">
-        
-          <div class="skill-item">
-            <div class="skill-name">惩戒光环</div>
-            <div class="skill-response">拉走其他 BOSS</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">守护光环</div>
-            <div class="skill-response">拉走其他 BOSS</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">沉默光环</div>
-            <div class="skill-response">拉走其他 BOSS</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">处决宣判</div>
-            <div class="skill-response">分担（大圈 T，小圈 DPS）</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">转转锤</div>
-            <div class="skill-response">躲开</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">飞盾</div>
-            <div class="skill-response">正常应对</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">圣光轨道炮</div>
-            <div class="skill-response">躲开</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">横冲直撞</div>
-            <div class="skill-response">转火打盾</div>
-          </div>
-        
-          <div class="skill-item">
-            <div class="skill-name">致盲之光</div>
-            <div class="skill-response">打断</div>
-          </div>
-        
+      <div class="core-idea-text">
+        <span class="highlight-danger">议会型战斗</span>：三名圣骑士（FQ/CJ/NQ）血量不共享，需尽量同时倒地。
       </div>
+      <ul class="core-list">
+        <li>任意 BOSS 死亡后，其余 BOSS <span class="highlight-danger">增伤 30%</span></li>
+        <li>满能量释放大招后留下奉献污染场地</li>
+        <li>场地按<span class="highlight-danger">顺时针</span>旋转移动</li>
+        <li>BOSS 释放顺序：<span class="highlight-danger">FQ → CJ → NQ</span></li>
+        <li>全程 3 个 BOSS 的环境 AOE，治疗压力极大</li>
+      </ul>
     </div>
   </div>
-  
 
-  <!-- 职责分工卡片（直接展示，无标签页） -->
-  
+  <!-- 职责分工卡片 -->
   <div class="card">
     <div class="card-header">
       <span class="card-icon">👥</span>
       <span class="card-title">职责分工</span>
     </div>
     <div class="card-body">
-      
-        <div class="role-section">
-          <div class="role-title">🛡️ 坦克</div>
-          <ul class="duty-list">
-            <li>将 Boss 坦克在边缘，每次终极技能后沿边缘旋转</li><li>当 Lightblood 或 Bellamy 施放审判时，另一名坦克立即嘲讽</li><li>注意换 T 机制：CJQ 打主 T 黄审判，FQ 打副 T 蓝审判，必须换嘲</li>
-          </ul>
-        </div>
-      
-        <div class="role-section">
-          <div class="role-title">💚 治疗</div>
-          <ul class="duty-list">
-            <li>满能量时释放</li><li>赋予 40 码附近所有 BOSS 光环效果</li><li>效果期间，攻击 BOSS 会被沉默 4 秒</li><li>光环结束后，脚下释放一滩奉献之地</li><li>满能量单独拉走</li>
-          </ul>
-        </div>
-      
-    </div>
-  </div>
-  
-
-  <!-- 机制要点卡片（待后处理添加标签） -->
-  
-  <div class="card">
-    <div class="card-header">
-      <span class="card-icon">📋</span>
-      <span class="card-title">机制要点</span>
-    </div>
-    <div class="card-body">
-      <div class="phase-list">
-        
-          <div class="phase-item">
-            <div class="phase-name">终极技能</div>
-            <ul class="phase-points">
-              <li>每个 BOSS 在 100 能量时使用终极技能</li><li>终极技能是错开的，不会同时触发</li><li>将其他 Boss 移出大圈</li><li>终极技能结束时放置大型奉献虚空区域</li>
-            </ul>
-          </div>
-        
-          <div class="phase-item">
-            <div class="phase-name">致盲之光 (BLINDING LIGHT)</div>
-            <ul class="phase-points">
-              <li>锁定随机并骑乘 Elekk 向他们冲锋</li><li>打破护盾并打断施法</li>
-            </ul>
-          </div>
-        
+      <div class="role-section">
+        <div class="role-title">🛡️ 坦克</div>
+        <ul class="duty-list">
+          <li>起手拉边场，分别拉住 FQ 和 CJ</li>
+          <li><span class="highlight-danger">换坦是核心！</span>黄蓝审判后必须换嘲</li>
+          <li>不换嘲 = 伤害 +200%，直接崩</li>
+          <li>带位沿场边顺时针移动即可</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">⚔️ 分担组 (×3)</div>
+        <ul class="duty-list">
+          <li>123 组分担不能乱，按标记光柱站位</li>
+          <li>分担后 <span class="highlight-danger">立即躲避转转锤</span></li>
+          <li>分担后 5 秒内不可再分担</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">🎯 沙包组</div>
+        <ul class="duty-list">
+          <li>远程/机动职业在远处"排队"</li>
+          <li>勾引 NQ 的骑马冲锋</li>
+          <li>冲锋路径必须清空</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">💚 全员</div>
+        <ul class="duty-list">
+          <li>控制 NQ 破盾打断要快，否则治疗压力崩盘</li>
+        </ul>
       </div>
     </div>
   </div>
-  
+
+  <!-- 防骑 (FQ) 机制 -->
+  <div class="boss-section">
+    <span class="boss-section-title">🛡️ 防骑 (FQ) - 阿米亚斯·贝拉米将军</span>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="skill-list">
+        <div class="skill-item skill-danger">
+          <div class="skill-name">🙏 虔诚光环（满能量）</div>
+          <div class="skill-response">减伤 40 码附近所有 BOSS，脚下留奉献</div>
+        </div>
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚡ 直线飞盾（满能量）</div>
+          <div class="skill-response">FQ 原地释放直线飞盾，<span class="highlight-danger">躲避路径！</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">点名飞盾</div>
+          <div class="skill-response">中招者靠边站位，路径不能站人，15秒掉血可驱散</div>
+        </div>
+        <div class="skill-item skill-normal">
+          <div class="skill-name">转转锤</div>
+          <div class="skill-response">沉默 3 秒，躲开</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔵 蓝审判</div>
+          <div class="skill-response">FQ 打副 T → 主 T 换嘲接正义盾击</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 惩戒骑 (CJ) 机制 -->
+  <div class="boss-section">
+    <span class="boss-section-title">⚔️ 惩戒骑 (CJ) - 指挥官维莱尔光血</span>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="skill-list">
+        <div class="skill-item skill-danger">
+          <div class="skill-name">😠 愤怒光环（满能量）</div>
+          <div class="skill-response">增伤 40 码附近所有 BOSS，脚下留奉献</div>
+        </div>
+        <div class="skill-item skill-danger">
+          <div class="skill-name">🔨 天锤点名（满能量）</div>
+          <div class="skill-response">点名 3 人秒杀，分担组 1→2→3 依次进入各自分担圈</div>
+        </div>
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚠️ 转转锤（分担后出现）</div>
+          <div class="skill-response">伤害极高，<span class="highlight-danger">分担后立即躲避！</span></div>
+        </div>
+        <div class="skill-item skill-normal">
+          <div class="skill-name">神圣风暴</div>
+          <div class="skill-response">8 码近战 AOE，近战躲避</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🟡 黄审判</div>
+          <div class="skill-response">CJ 打主 T → 副 T 换嘲接裁决</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 奶骑 (NQ) 机制 -->
+  <div class="boss-section">
+    <span class="boss-section-title">💚 奶骑 (NQ) - 战争牧师瑟琳</span>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="skill-list">
+        <div class="skill-item skill-danger">
+          <div class="skill-name">😌 平心光环（满能量）</div>
+          <div class="skill-response">攻击者"平静"（无法攻击），点名最近玩家吸收奶盾，脚下留奉献</div>
+        </div>
+        <div class="skill-item skill-danger">
+          <div class="skill-name">骑马冲锋</div>
+          <div class="skill-response">冲锋最远玩家，沙包组排队勾引，<span class="highlight-danger">路径清空！</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">破盾打断</div>
+          <div class="skill-response">到位后快速转火打盾并打断</div>
+        </div>
+        <div class="skill-item skill-normal">
+          <div class="skill-name">圣光轨道炮</div>
+          <div class="skill-response">区域每秒 13W，躲开</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 换 T 机制速查 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔄</span>
+      <span class="card-title">换 T 机制速查</span>
+    </div>
+    <div class="card-body">
+      <div class="skill-list">
+        <div class="skill-item" style="border-left-color: #4CAF50; background: rgba(76, 175, 80, 0.1);">
+          <div class="skill-name" style="color: #4CAF50;">CJ 惩戒骑 → 🟡 黄审判</div>
+          <div class="skill-response">打主 T → 副 T 换嘲接裁决</div>
+        </div>
+        <div class="skill-item" style="border-left-color: #2196F3; background: rgba(33, 150, 243, 0.1);">
+          <div class="skill-name" style="color: #2196F3;">FQ 防骑 → 🔵 蓝审判</div>
+          <div class="skill-response">打副 T → 主 T 换嘲接正义盾击</div>
+        </div>
+      </div>
+      <div style="margin-top: 10px; padding: 8px; background: rgba(255, 68, 68, 0.1); border-radius: 6px; font-size: 13px;">
+        ⚠️ 不换嘲 = <span class="highlight-danger">伤害 +200%</span>
+      </div>
+    </div>
+  </div>
 
   <!-- 底部 -->
   <div class="footer">
-    攻略：奶个爪爪 · Midnight S1 · 2026-03-18
+    攻略：奶个爪爪 · Midnight S1 · 2026-03-19
   </div>
 
 </body>
