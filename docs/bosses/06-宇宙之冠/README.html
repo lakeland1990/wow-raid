@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>宇宙之冠 - 攻略卡片</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      background: #0D0D1A;
+      color: #E8E8E8;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ========== 顶部紧凑区 ========== */
+    .header {
+      background: linear-gradient(180deg, #252540 0%, #1A1A2E 100%);
+      padding: 16px;
+      border-bottom: 2px solid #3A3A5A;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .boss-info { flex: 1; }
+
+    .boss-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 4px;
+    }
+
+    .raid-tag {
+      display: inline-block;
+      background: #FF6B00;
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .fight-meta {
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .meta-item { text-align: center; }
+    .meta-label { font-size: 11px; color: #888899; }
+    .meta-value { font-size: 14px; font-weight: bold; color: #FF6B00; }
+
+    /* ========== 口诀大字报（第一屏核心） ========== */
+    .mantra {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 107, 0, 0.1) 100%);
+      padding: 20px 16px;
+      margin: 12px;
+      border-radius: 12px;
+      border: 2px solid #FFD700;
+      text-align: center;
+    }
+
+    .mantra-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .mantra-line { padding: 4px 0; }
+
+    /* ========== 卡片通用样式 ========== */
+    .card {
+      background: #1A1A2E;
+      border-radius: 12px;
+      margin: 12px;
+      overflow: hidden;
+      border: 1px solid #3A3A5A;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      background: #252540;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-icon { font-size: 18px; }
+    .card-title { font-size: 16px; font-weight: bold; color: #FF6B00; }
+    .card-body { padding: 12px 14px; }
+
+    /* ========== 核心思路 ========== */
+    .core-idea-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #E8E8E8;
+    }
+
+    /* ========== 高亮关键词 ========== */
+    .highlight-danger {
+      color: #FF4444;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
+    }
+
+    .highlight-warning {
+      color: #FF6B00;
+      font-weight: bold;
+    }
+
+    /* ========== 技能卡片（堆叠模式） ========== */
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+      border-left: 3px solid #888899;
+    }
+
+    /* 危险等级配色 */
+    .skill-item.skill-danger {
+      border-left-color: #FF4444;
+      background: rgba(255, 68, 68, 0.1);
+    }
+    .skill-item.skill-danger .skill-name { color: #FF4444; }
+
+    .skill-item.skill-warning {
+      border-left-color: #FF6B00;
+      background: rgba(255, 107, 0, 0.1);
+    }
+    .skill-item.skill-warning .skill-name { color: #FF6B00; }
+
+    .skill-item.skill-normal {
+      border-left-color: #4FC3F7;
+      background: rgba(79, 195, 247, 0.1);
+    }
+    .skill-item.skill-normal .skill-name { color: #4FC3F7; }
+
+    .skill-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #FF6B00;
+      margin-bottom: 4px;
+    }
+
+    .skill-response {
+      font-size: 14px;
+      color: #7CFC00;
+      padding-left: 8px;
+      border-left: 2px solid #7CFC00;
+    }
+
+    /* ========== 职责分工（直接展示，无标签页） ========== */
+    .role-section {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3A3A5A;
+    }
+    .role-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .role-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .duty-list { list-style: none; }
+    .duty-list li {
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 5px 0 5px 16px;
+      position: relative;
+      border-bottom: 1px solid rgba(58, 58, 90, 0.3);
+    }
+    .duty-list li:last-child { border-bottom: none; }
+    .duty-list li::before {
+      content: "▸";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ========== 机制要点 ========== */
+    .phase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phase-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .phase-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* 机制标签 */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .tag-core { background: #FF4444; }
+    .tag-share { background: #9C27B0; }
+    .tag-target { background: #FF6B00; }
+    .tag-switch { background: #4CAF50; }
+    .tag-dodge { background: #2196F3; }
+    .tag-adds { background: #607D8B; }
+    .tag-dps { background: #E91E63; }
+
+    .phase-points { list-style: none; }
+    .phase-points li {
+      font-size: 13px;
+      line-height: 1.4;
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+    .phase-points li::before {
+      content: "•";
+      color: #FF6B00;
+      position: absolute;
+      left: 0;
+    }
+
+    /* ========== 阶段标题 ========== */
+    .phase-header {
+      font-size: 16px;
+      font-weight: bold;
+      color: #FFD700;
+      padding: 8px 0;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #FF6B00;
+    }
+
+    /* ========== 底部 ========== */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #888899;
+      border-top: 1px solid #3A3A5A;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部紧凑区 -->
+  <div class="header">
+    <div class="header-row">
+      <div class="boss-info">
+        <div class="boss-name">宇宙之冠</div>
+        <span class="raid-tag">虚空尖塔 · 尾王</span>
+      </div>
+      <div class="fight-meta">
+        <div class="meta-item">
+          <div class="meta-label">类型</div>
+          <div class="meta-value">多阶段</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">嗜血</div>
+          <div class="meta-value">P3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 口诀大字报（第一屏核心） -->
+  <div class="mantra">
+    <div class="mantra-content">
+      <span class="mantra-line">银锋箭消层是核心</span>
+      <span class="mantra-line">三姊妹旁边要站人</span>
+      <span class="mantra-line">黑奥打断虚空弹幕</span>
+      <span class="mantra-line">P3吃羽毛跑三十码</span>
+    </div>
+  </div>
+
+  <!-- 核心思路卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💡</span>
+      <span class="card-title">核心思路</span>
+    </div>
+    <div class="card-body">
+      <div class="core-idea-text">多阶段战斗，核心机制围绕<span class="highlight-warning">银锋箭</span>消除玩家和小怪身上的虚空效果。P1 处理三只木桩大怪，P2 优先击杀增益型小怪，P3 是纯粹的<span class="highlight-danger">DPS检查点</span>。</div>
+    </div>
+  </div>
+
+  <!-- 关键技能卡片（危险等级配色） -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">⚡</span>
+      <span class="card-title">关键技能</span>
+    </div>
+    <div class="card-body">
+      <div class="skill-list">
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚠️ 噬灭宇宙 (P3)</div>
+          <div class="skill-response">场地缩减 + 全团<span class="highlight-danger">99%减疗</span>，DPS检查点</div>
+        </div>
+        <div class="skill-item skill-danger">
+          <div class="skill-name">⚠️ 不朽哨兵无人站</div>
+          <div class="skill-response">任何大怪周围没T → <span class="highlight-danger">全屏团灭</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔥 银锋箭/弹幕</div>
+          <div class="skill-response">核心消层手段，移除虚空效果</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔥 裂隙幻影 (P2)</div>
+          <div class="skill-response">优先击杀！给Boss加减伤，必须打断虚空弹幕</div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔥 终末箭 (P3)</div>
+          <div class="skill-response">点名远离30码，<span class="highlight-warning">吃羽毛加速跑</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">💫 重力坍缩 (P3)</div>
+          <div class="skill-response">拉断连线，否则300%物理易伤</div>
+        </div>
+        <div class="skill-item skill-normal">
+          <div class="skill-name">✦ 空无之冕</div>
+          <div class="skill-response">60W吸收盾，驱散会跳人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1 机制要点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📋</span>
+      <span class="card-title">P1 - 不朽哨门</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            银锋箭
+          </div>
+          <ul class="phase-points">
+            <li>直线穿透，<span class="highlight-warning">必须消层</span></li>
+            <li>移除玩家和小怪身上的虚空效果</li>
+            <li>是本场战斗最重要的交互机制</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-adds">小怪</span>
+            不朽哨门（三姊妹）
+          </div>
+          <ul class="phase-points">
+            <li>三只木桩大怪，<span class="highlight-danger">必须有T站位</span></li>
+            <li>大Dài：周期性AOE，全团无法施法</li>
+            <li>大Nì：周期性原地AOE，近战远离</li>
+            <li>银锋箭可射掉虚空BUFF</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dodge">躲避</span>
+            空虚之握
+          </div>
+          <ul class="phase-points">
+            <li>被拉后触发"崩裂空无"（射线/地板圈）</li>
+            <li><span class="highlight-warning">第一时间逃离拉人中心</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 转阶段机制 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔄</span>
+      <span class="card-title">转阶段 (P1.5 / P2.5)</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            银锋弹幕射击
+          </div>
+          <ul class="phase-points">
+            <li>核心<span class="highlight-warning">消层手段</span></li>
+            <li>带有8秒300%增伤</li>
+            <li>8秒后必须消一次，否则压力巨大</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dodge">躲避</span>
+            星辰散射
+          </div>
+          <ul class="phase-points">
+            <li>击飞/击退效果随层数提高</li>
+            <li>必须及时消层，防止被弹下平台</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 机制要点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📋</span>
+      <span class="card-title">P2 - 裂隙幻影</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">优先</span>
+            裂隙幻影（黑奥）
+          </div>
+          <ul class="phase-points">
+            <li><span class="highlight-danger">优先级极高！</span>给Boss加减伤和伤害</li>
+            <li>"空虚之冕"吸收极高治疗 → 治疗爆发刷血</li>
+            <li>必须打断"虚空弹幕"</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-adds">小怪</span>
+            不死的空灵爪牙
+          </div>
+          <ul class="phase-points">
+            <li><span class="highlight-danger">必须打断"虚空弹幕"</span></li>
+            <li>100能量后获得300%移速 + 500%伤害</li>
+            <li>满能量前击杀或利用机制控制</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-switch">换T</span>
+            黑暗力量
+          </div>
+          <ul class="phase-points">
+            <li>大怪和BOSS要拉开</li>
+            <li>否则增伤加减伤，T属性降低（每层10%）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 机制要点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💀</span>
+      <span class="card-title">P3 - 狂暴斩杀</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dps">DPS检查</span>
+            噬灭宇宙
+          </div>
+          <ul class="phase-points">
+            <li>场地逐渐缩减，吞掉即<span class="highlight-danger">团灭</span></li>
+            <li>全团<span class="highlight-danger">99%减疗</span></li>
+            <li>纯粹的DPS检查点</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-target">点名</span>
+            终末箭
+          </div>
+          <ul class="phase-points">
+            <li>点名需<span class="highlight-warning">远离BOSS 30码以外</span></li>
+            <li>被击飞空中，落地全团AOE</li>
+            <li><span class="highlight-warning">吃羽毛加速跑</span></li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            重力坍缩
+          </div>
+          <ul class="phase-points">
+            <li>被点名者需<span class="highlight-warning">拉断连线</span></li>
+            <li>未处理 → 300%物理易伤 → 基本倒坦</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 职责分工卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">👥</span>
+      <span class="card-title">职责分工</span>
+    </div>
+    <div class="card-body">
+      <div class="role-section">
+        <div class="role-title">🛡️ 坦克</div>
+        <ul class="duty-list">
+          <li>P1: 三只木桩大怪必须有T站位，无人即<span class="highlight-danger">团灭</span></li>
+          <li>P2: 大怪和BOSS换T，否则属性降低（每层10%）</li>
+          <li>注意大怪满能量自爆团灭</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">💚 治疗</div>
+        <ul class="duty-list">
+          <li>处理空无之冕（60W吸收盾）</li>
+          <li>驱散会跳到其他人身上</li>
+          <li>连续射击时注意加血</li>
+          <li>P3 全团99%减疗，资源紧张</li>
+        </ul>
+      </div>
+      <div class="role-section">
+        <div class="role-title">⚔️ DPS</div>
+        <ul class="duty-list">
+          <li><span class="highlight-warning">优先击杀裂隙幻影（黑奥）</span></li>
+          <li>打断不死的空灵爪牙"虚空弹幕"</li>
+          <li>P3 是DPS检查，全力爆发</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    攻略：奶个爪爪 · Midnight S1 · 2026-03-19
+  </div>
+
+</body>
+</html>
