@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>奇美鲁斯 (Chimaerus) - 攻略卡片</title>
+  <title>宇宙之冠 - 攻略卡片</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -69,12 +69,16 @@
     }
 
     .mantra-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
       font-size: 20px;
       font-weight: bold;
       color: #FFD700;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      line-height: 1.8;
     }
+
+    .mantra-line { padding: 4px 0; }
 
     /* ========== 卡片通用样式 ========== */
     .card {
@@ -110,6 +114,11 @@
       color: #FF4444;
       font-weight: bold;
       text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
+    }
+
+    .highlight-warning {
+      color: #FF6B00;
+      font-weight: bold;
     }
 
     /* ========== 技能卡片（堆叠模式） ========== */
@@ -235,7 +244,8 @@
     .tag-target { background: #FF6B00; }
     .tag-switch { background: #4CAF50; }
     .tag-dodge { background: #2196F3; }
-    .tag-dispel { background: #E91E63; }
+    .tag-adds { background: #607D8B; }
+    .tag-dps { background: #E91E63; }
 
     .phase-points { list-style: none; }
     .phase-points li {
@@ -251,48 +261,14 @@
       left: 0;
     }
 
-    /* ========== 场地标记表格 ========== */
-    .marker-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    .marker-table th {
-      background: #252540;
-      color: #FFD700;
-      padding: 8px;
-      text-align: left;
-    }
-    .marker-table td {
-      padding: 6px 8px;
-      border-bottom: 1px solid #3A3A5A;
-    }
-    .marker-table tr:last-child td { border-bottom: none; }
-    .marker-icon {
+    /* ========== 阶段标题 ========== */
+    .phase-header {
       font-size: 16px;
-      margin-right: 4px;
-    }
-
-    /* ========== 开荒重点 ========== */
-    .key-point {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px;
-      background: rgba(255, 68, 68, 0.1);
-      border-radius: 8px;
-      margin-bottom: 8px;
-      border-left: 3px solid #FF4444;
-    }
-    .key-point:last-child { margin-bottom: 0; }
-    .key-point-title {
-      color: #FFD700;
       font-weight: bold;
-      min-width: 80px;
-    }
-    .key-point-desc {
-      color: #E8E8E8;
-      font-size: 13px;
+      color: #FFD700;
+      padding: 8px 0;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #FF6B00;
     }
 
     /* ========== 底部 ========== */
@@ -312,33 +288,29 @@
   <div class="header">
     <div class="header-row">
       <div class="boss-info">
-        <div class="boss-name">奇美鲁斯 (Chimaerus)</div>
-        <span class="raid-tag">幽梦裂隙 (The Dreamrift)</span>
+        <div class="boss-name">宇宙之冠</div>
+        <span class="raid-tag">虚空尖塔 · 尾王</span>
       </div>
       <div class="fight-meta">
         <div class="meta-item">
           <div class="meta-label">类型</div>
-          <div class="meta-value">内/外场分边</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">分配</div>
-          <div class="meta-value">两组轮换</div>
+          <div class="meta-value">多阶段</div>
         </div>
         <div class="meta-item">
           <div class="meta-label">嗜血</div>
-          <div class="meta-value">开怪</div>
+          <div class="meta-value">P3</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 口诀大字报 -->
+  <!-- 口诀大字报（第一屏核心） -->
   <div class="mantra">
     <div class="mantra-content">
-      两组轮换进内场<br>
-      破盾打怪送外场<br>
-      白圈找水等驱散<br>
-      大饼三角跟着走
+      <span class="mantra-line">银锋箭消层是核心</span>
+      <span class="mantra-line">三姊妹旁边要站人</span>
+      <span class="mantra-line">黑奥打断虚空弹幕</span>
+      <span class="mantra-line">P3吃羽毛跑三十码</span>
     </div>
   </div>
 
@@ -349,11 +321,11 @@
       <span class="card-title">核心思路</span>
     </div>
     <div class="card-body">
-      <div class="core-idea-text">分团轮换进内场打盾，外场转火清小怪，白圈点名消水。</div>
+      <div class="core-idea-text">多阶段战斗，核心机制围绕<span class="highlight-warning">银锋箭</span>消除玩家和小怪身上的虚空效果。P1 处理三只木桩大怪，P2 优先击杀增益型小怪，P3 是纯粹的<span class="highlight-danger">DPS检查点</span>。</div>
     </div>
   </div>
 
-  <!-- 关键技能卡片 -->
+  <!-- 关键技能卡片（危险等级配色） -->
   <div class="card">
     <div class="card-header">
       <span class="card-icon">⚡</span>
@@ -361,37 +333,34 @@
     </div>
     <div class="card-body">
       <div class="skill-list">
-
         <div class="skill-item skill-danger">
-          <div class="skill-name">⚠️ BOSS 飞天</div>
-          <div class="skill-response">吃掉所有小怪<span class="highlight-danger">回血增伤</span>，必须尽快清完小怪</div>
+          <div class="skill-name">⚠️ 噬灭宇宙 (P3)</div>
+          <div class="skill-response">场地缩减 + 全团<span class="highlight-danger">99%减疗</span>，DPS检查点</div>
         </div>
-
         <div class="skill-item skill-danger">
-          <div class="skill-name">⚠️ 腐蚀毁灭</div>
-          <div class="skill-response">龙喷横扫场地，<span class="highlight-danger">躲避</span>直线区域</div>
+          <div class="skill-name">⚠️ 不朽哨兵无人站</div>
+          <div class="skill-response">任何大怪周围没T → <span class="highlight-danger">全屏团灭</span></div>
         </div>
-
         <div class="skill-item skill-warning">
-          <div class="skill-name">🔶 外场小怪</div>
-          <div class="skill-response">破盾后从内场出来，第一时间<span class="highlight-danger">转火击杀</span>，吃控制</div>
+          <div class="skill-name">🔥 银锋箭/弹幕</div>
+          <div class="skill-response">核心消层手段，移除虚空效果</div>
         </div>
-
         <div class="skill-item skill-warning">
-          <div class="skill-name">🔶 吞噬瘴气</div>
-          <div class="skill-response">白圈点名，站<span class="highlight-danger">金水最多处</span>等驱散，不能秒驱</div>
+          <div class="skill-name">🔥 裂隙幻影 (P2)</div>
+          <div class="skill-response">优先击杀！给Boss加减伤，必须打断虚空弹幕</div>
         </div>
-
+        <div class="skill-item skill-warning">
+          <div class="skill-name">🔥 终末箭 (P3)</div>
+          <div class="skill-response">点名远离30码，<span class="highlight-warning">吃羽毛加速跑</span></div>
+        </div>
+        <div class="skill-item skill-warning">
+          <div class="skill-name">💫 重力坍缩 (P3)</div>
+          <div class="skill-response">拉断连线，否则300%物理易伤</div>
+        </div>
         <div class="skill-item skill-normal">
-          <div class="skill-name">🔹 艾兰之尘 (Upheaval)</div>
-          <div class="skill-response">蓝方块集合分担，进入内场 40 秒</div>
+          <div class="skill-name">✦ 空无之冕</div>
+          <div class="skill-response">60W吸收盾，驱散会跳人</div>
         </div>
-
-        <div class="skill-item skill-normal">
-          <div class="skill-name">🔹 内场小怪</div>
-          <div class="skill-response">打破 20W 护盾，在蓝方块附近击杀</div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -400,59 +369,79 @@
   <div class="card">
     <div class="card-header">
       <span class="card-icon">📋</span>
-      <span class="card-title">P1 阶段</span>
+      <span class="card-title">P1 - 不朽哨门</span>
     </div>
     <div class="card-body">
       <div class="phase-list">
-
         <div class="phase-item">
           <div class="phase-name">
             <span class="tag tag-core">核心</span>
-            分组轮换
+            银锋箭
           </div>
           <ul class="phase-points">
-            <li>全团分两组，每组配 DK 拉怪</li>
-            <li>一组场外，一组蓝方块分担进内场</li>
-            <li>两组轮换，进内场后 90 秒不可再吃分担</li>
+            <li>直线穿透，<span class="highlight-warning">必须消层</span></li>
+            <li>移除玩家和小怪身上的虚空效果</li>
+            <li>是本场战斗最重要的交互机制</li>
           </ul>
         </div>
 
         <div class="phase-item">
           <div class="phase-name">
-            <span class="tag tag-switch">内场</span>
-            内场任务 (40秒)
+            <span class="tag tag-adds">小怪</span>
+            不朽哨门（三姊妹）
           </div>
           <ul class="phase-points">
-            <li>第一时间击破小怪盾</li>
-            <li>在<span class="highlight-danger">蓝方块附近击杀</span>，让金水集中</li>
-            <li>打完小怪转火 BOSS</li>
+            <li>三只木桩大怪，<span class="highlight-danger">必须有T站位</span></li>
+            <li>大Dài：周期性AOE，全团无法施法</li>
+            <li>大Nì：周期性原地AOE，近战远离</li>
+            <li>银锋箭可射掉虚空BUFF</li>
           </ul>
         </div>
 
         <div class="phase-item">
           <div class="phase-name">
-            <span class="tag tag-target">外场</span>
-            外场任务
+            <span class="tag tag-dodge">躲避</span>
+            空虚之握
           </div>
           <ul class="phase-points">
-            <li>内场小怪破盾后出场走向 BOSS</li>
-            <li><span class="highlight-danger">第一时间转火打掉</span></li>
-            <li>小怪吃控制，T 根据大怪位置调整站位</li>
+            <li>被拉后触发"崩裂空无"（射线/地板圈）</li>
+            <li><span class="highlight-warning">第一时间逃离拉人中心</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 转阶段机制 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔄</span>
+      <span class="card-title">转阶段 (P1.5 / P2.5)</span>
+    </div>
+    <div class="card-body">
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            银锋弹幕射击
+          </div>
+          <ul class="phase-points">
+            <li>核心<span class="highlight-warning">消层手段</span></li>
+            <li>带有8秒300%增伤</li>
+            <li>8秒后必须消一次，否则压力巨大</li>
           </ul>
         </div>
 
         <div class="phase-item">
           <div class="phase-name">
-            <span class="tag tag-dispel">点名</span>
-            白圈消水
+            <span class="tag tag-dodge">躲避</span>
+            星辰散射
           </div>
           <ul class="phase-points">
-            <li>被点名者离开人群，找<span class="highlight-danger">金水最多处</span></li>
-            <li>站定后奶妈驱散，<span class="highlight-danger">不能秒驱</span></li>
-            <li>驱散后炸掉金水清场</li>
+            <li>击飞/击退效果随层数提高</li>
+            <li>必须及时消层，防止被弹下平台</li>
           </ul>
         </div>
-
       </div>
     </div>
   </div>
@@ -460,74 +449,92 @@
   <!-- P2 机制要点 -->
   <div class="card">
     <div class="card-header">
-      <span class="card-icon">🔥</span>
-      <span class="card-title">P2 阶段</span>
+      <span class="card-icon">📋</span>
+      <span class="card-title">P2 - 裂隙幻影</span>
     </div>
     <div class="card-body">
       <div class="phase-list">
-
         <div class="phase-item">
           <div class="phase-name">
-            <span class="tag tag-core">核心</span>
-            阶段转换
+            <span class="tag tag-core">优先</span>
+            裂隙幻影（黑奥）
           </div>
           <ul class="phase-points">
-            <li>两次进内场后转入 P2</li>
-            <li>BOSS 飞到台子上（无敌）</li>
-            <li>满场都是水，召唤大量小怪</li>
+            <li><span class="highlight-danger">优先级极高！</span>给Boss加减伤和伤害</li>
+            <li>"空虚之冕"吸收极高治疗 → 治疗爆发刷血</li>
+            <li>必须打断"虚空弹幕"</li>
           </ul>
         </div>
 
         <div class="phase-item">
           <div class="phase-name">
-            <span class="tag tag-dodge">走位</span>
-            大饼 → 三角
+            <span class="tag tag-adds">小怪</span>
+            不死的空灵爪牙
           </div>
           <ul class="phase-points">
-            <li><span class="highlight-danger">大饼集合</span>引导龙喷</li>
-            <li>随后集体移动到<span class="highlight-danger">三角</span></li>
-            <li>龙喷留下直线污染和小怪，集合处理</li>
+            <li><span class="highlight-danger">必须打断"虚空弹幕"</span></li>
+            <li>100能量后获得300%移速 + 500%伤害</li>
+            <li>满能量前击杀或利用机制控制</li>
           </ul>
         </div>
 
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-switch">换T</span>
+            黑暗力量
+          </div>
+          <ul class="phase-points">
+            <li>大怪和BOSS要拉开</li>
+            <li>否则增伤加减伤，T属性降低（每层10%）</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- 场地标记 -->
+  <!-- P3 机制要点 -->
   <div class="card">
     <div class="card-header">
-      <span class="card-icon">📍</span>
-      <span class="card-title">场地标记</span>
+      <span class="card-icon">💀</span>
+      <span class="card-title">P3 - 狂暴斩杀</span>
     </div>
     <div class="card-body">
-      <table class="marker-table">
-        <tr>
-          <th>标记</th>
-          <th>位置</th>
-          <th>用途</th>
-        </tr>
-        <tr>
-          <td><span class="marker-icon">🔵</span>蓝方块</td>
-          <td>场中央</td>
-          <td>分担进内场 / 内场小怪集合</td>
-        </tr>
-        <tr>
-          <td><span class="marker-icon">🟠</span>大饼</td>
-          <td>P2 起点</td>
-          <td>集合引导龙喷</td>
-        </tr>
-        <tr>
-          <td><span class="marker-icon">🟢</span>三角</td>
-          <td>P2 目标</td>
-          <td>引完喷吐后移动目标</td>
-        </tr>
-        <tr>
-          <td><span class="marker-icon">⚪</span>白圈</td>
-          <td>指定区域</td>
-          <td>点名消水站位</td>
-        </tr>
-      </table>
+      <div class="phase-list">
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-dps">DPS检查</span>
+            噬灭宇宙
+          </div>
+          <ul class="phase-points">
+            <li>场地逐渐缩减，吞掉即<span class="highlight-danger">团灭</span></li>
+            <li>全团<span class="highlight-danger">99%减疗</span></li>
+            <li>纯粹的DPS检查点</li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-target">点名</span>
+            终末箭
+          </div>
+          <ul class="phase-points">
+            <li>点名需<span class="highlight-warning">远离BOSS 30码以外</span></li>
+            <li>被击飞空中，落地全团AOE</li>
+            <li><span class="highlight-warning">吃羽毛加速跑</span></li>
+          </ul>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-name">
+            <span class="tag tag-core">核心</span>
+            重力坍缩
+          </div>
+          <ul class="phase-points">
+            <li>被点名者需<span class="highlight-warning">拉断连线</span></li>
+            <li>未处理 → 300%物理易伤 → 基本倒坦</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -538,56 +545,30 @@
       <span class="card-title">职责分工</span>
     </div>
     <div class="card-body">
-
       <div class="role-section">
         <div class="role-title">🛡️ 坦克</div>
         <ul class="duty-list">
-          <li>将 Boss 坦克在边缘</li>
-          <li>艾兰之尘时换坦</li>
-          <li>拉住小怪在远离 Boss 位置</li>
-          <li>根据大怪刷新位置调整站位</li>
+          <li>P1: 三只木桩大怪必须有T站位，无人即<span class="highlight-danger">团灭</span></li>
+          <li>P2: 大怪和BOSS换T，否则属性降低（每层10%）</li>
+          <li>注意大怪满能量自爆团灭</li>
         </ul>
       </div>
-
       <div class="role-section">
         <div class="role-title">💚 治疗</div>
         <ul class="duty-list">
-          <li><span class="highlight-danger">25秒/次</span> 全团 AOE + 12秒后续掉血</li>
-          <li>治疗压力极大</li>
-          <li>白圈点名到位后再驱散</li>
+          <li>处理空无之冕（60W吸收盾）</li>
+          <li>驱散会跳到其他人身上</li>
+          <li>连续射击时注意加血</li>
+          <li>P3 全团99%减疗，资源紧张</li>
         </ul>
       </div>
-
       <div class="role-section">
-        <div class="role-title">⚔️ 输出</div>
+        <div class="role-title">⚔️ DPS</div>
         <ul class="duty-list">
-          <li>内场：快速破盾，蓝方块附近击杀</li>
-          <li>外场：第一时间转火小怪</li>
-          <li>小怪吃控制，DK 拉怪减速</li>
+          <li><span class="highlight-warning">优先击杀裂隙幻影（黑奥）</span></li>
+          <li>打断不死的空灵爪牙"虚空弹幕"</li>
+          <li>P3 是DPS检查，全力爆发</li>
         </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 开荒重点 -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-icon">🎯</span>
-      <span class="card-title">开荒核心重点</span>
-    </div>
-    <div class="card-body">
-      <div class="key-point">
-        <div class="key-point-title">轮换节奏</div>
-        <div class="key-point-desc">P1 两组进出场必须有序，内场打盾速度决定外场压力</div>
-      </div>
-      <div class="key-point">
-        <div class="key-point-title">消水管理</div>
-        <div class="key-point-desc">白圈点名必须精准覆盖金水，到位后驱散清场，不能乱放水</div>
-      </div>
-      <div class="key-point">
-        <div class="key-point-title">P2 位移</div>
-        <div class="key-point-desc">大饼 → 三角步调一致，避免被龙喷封死走位空间</div>
       </div>
     </div>
   </div>
@@ -597,5 +578,35 @@
     攻略：奶个爪爪 · Midnight S1 · 2026-03-19
   </div>
 
+
+  <style>
+    /* 最大宽度限制 */
+    body { max-width: 430px; margin: 0 auto; }
+    /* 返回按钮 */
+    .back-btn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 107, 0, 0.9);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: #FFD700;
+      transform: scale(1.05);
+    }
+  </style>
+  <a href="../../index.html" class="back-btn">← 返回</a>
 </body>
 </html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WoW Midnight 团本攻略</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #0D0D1A 0%, #1A1A2E 100%);
+      color: #E0E0E0;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .container {
+      max-width: 430px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 16px;
+    }
+    .header h1 {
+      color: #FFD700;
+      font-size: 24px;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    }
+    .header .subtitle {
+      color: #888;
+      font-size: 13px;
+    }
+    .header .version {
+      color: #FF6B00;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    .raid-section {
+      margin-bottom: 24px;
+    }
+    .raid-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #FF6B00;
+      padding: 8px 0;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #FF6B00;
+    }
+    .boss-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .boss-card {
+      background: #1A1A2E;
+      border: 1px solid #3A3A5A;
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      color: #E0E0E0;
+      transition: all 0.2s;
+    }
+    .boss-card:hover {
+      border-color: #FF6B00;
+      background: #252540;
+      transform: translateX(4px);
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 11px;
+    }
+    .footer a {
+      color: #FF6B00;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>WoW Midnight 团本攻略</h1>
+      <div class="subtitle">急速军团 · 奶个爪爪</div>
+      <div class="version">Midnight Season 1 · 2026</div>
+    </div>
+    
+    <div class="raid-section">
+      <div class="raid-title" style="color: #FFD700; border-color: #FFD700;">📋 团本概述</div>
+      <div class="boss-grid">
+        <a href="overview.html" class="boss-card" style="border-color: #FFD700;">难度分级 · T套掉落 · 火花规划</a>
+      </div>
+    </div>
+    
+    <div class="raid-section">
+      <div class="raid-title">虚空尖塔</div>
+      <div class="boss-grid"><a href="bosses/01-元首阿福扎恩/README.html" class="boss-card">元首阿福扎恩</a>
+<a href="bosses/02-弗拉希乌斯/README.html" class="boss-card">弗拉希乌斯</a>
+<a href="bosses/03-堕落之王萨尔哈达尔/README.html" class="boss-card">堕落之王萨尔哈达尔</a>
+<a href="bosses/04-威厄高尔和艾佐拉克/README.html" class="boss-card">威厄高尔和艾佐拉克</a>
+<a href="bosses/05-光芒先锋军/README.html" class="boss-card">光芒先锋军</a>
+<a href="bosses/06-宇宙之冠/README.html" class="boss-card">宇宙之冠</a></div>
+    </div>
+
+    <div class="raid-section">
+      <div class="raid-title">幽梦裂隙</div>
+      <div class="boss-grid"><a href="bosses/D1-奇美鲁斯/README.html" class="boss-card">奇美鲁斯</a></div>
+    </div>
+
+    <div class="raid-section">
+      <div class="raid-title">奎尔丹纳斯进军</div>
+      <div class="boss-grid"><a href="bosses/Q1-贝洛伦/README.md" class="boss-card">贝洛伦</a>
+<a href="bosses/Q2-至暗之夜降临/README.md" class="boss-card">至暗之夜降临</a></div>
+    </div>
+    <div class="footer">
+      数据来源: <a href="https://www.wowhead.com" target="_blank">Wowhead</a>
+    </div>
+  </div>
+</body>
+</html>

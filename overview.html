@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>团本总览 - 攻略卡片</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, "Microsoft YaHei", sans-serif;
+      background: #0D0D1A;
+      color: #E8E8E8;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ========== 顶部紧凑区 ========== */
+    .header {
+      background: linear-gradient(180deg, #252540 0%, #1A1A2E 100%);
+      padding: 16px;
+      border-bottom: 2px solid #3A3A5A;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .boss-info { flex: 1; }
+
+    .boss-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 4px;
+    }
+
+    .raid-tag {
+      display: inline-block;
+      background: #9C27B0;
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .exp-tag {
+      display: inline-block;
+      background: #FF6B00;
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 6px;
+    }
+
+    /* ========== 口诀大字报 ========== */
+    .mantra {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 107, 0, 0.1) 100%);
+      padding: 16px;
+      margin: 12px;
+      border-radius: 12px;
+      border: 2px solid #FFD700;
+      text-align: center;
+    }
+
+    .mantra-content {
+      font-size: 16px;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      line-height: 1.8;
+    }
+
+    /* ========== 卡片通用样式 ========== */
+    .card {
+      background: #1A1A2E;
+      border-radius: 12px;
+      margin: 12px;
+      overflow: hidden;
+      border: 1px solid #3A3A5A;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      background: #252540;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-icon { font-size: 18px; }
+    .card-title { font-size: 16px; font-weight: bold; color: #FF6B00; }
+    .card-body { padding: 12px 14px; }
+
+    /* ========== Boss 列表 ========== */
+    .boss-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .boss-item {
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .boss-number {
+      width: 28px;
+      height: 28px;
+      background: #FF6B00;
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .boss-number.boss-final {
+      background: #FF4444;
+      color: #fff;
+    }
+
+    .boss-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .boss-cn {
+      font-size: 14px;
+      font-weight: bold;
+      color: #E8E8E8;
+    }
+
+    .boss-en {
+      font-size: 11px;
+      color: #888899;
+    }
+
+    /* ========== 难度分级 ========== */
+    .difficulty-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .diff-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: rgba(58, 58, 90, 0.3);
+      border-radius: 6px;
+    }
+
+    .diff-name {
+      flex: 1;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .diff-stars {
+      color: #FFD700;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .diff-note {
+      font-size: 11px;
+      color: #888899;
+    }
+
+    /* ========== T套掉落 ========== */
+    .tier-section {
+      margin-bottom: 14px;
+    }
+
+    .tier-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .tier-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #FFD700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tier-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .tier-table th {
+      background: rgba(255, 107, 0, 0.2);
+      color: #FF6B00;
+      padding: 8px;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .tier-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(58, 58, 90, 0.3);
+    }
+
+    .tier-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .armor-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .armor-cloth { background: #2196F3; color: #fff; }
+    .armor-leather { background: #4CAF50; color: #fff; }
+    .armor-mail { background: #FF6B00; color: #000; }
+    .armor-plate { background: #9E9E9E; color: #000; }
+
+    .warning-box {
+      background: rgba(255, 68, 68, 0.1);
+      border-left: 3px solid #FF4444;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .warning-box p {
+      font-size: 13px;
+      color: #FF6B6B;
+    }
+
+    /* ========== 制造业规划 ========== */
+    .route-card {
+      background: rgba(58, 58, 90, 0.2);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .route-header {
+      background: rgba(255, 107, 0, 0.15);
+      padding: 8px 12px;
+      font-weight: bold;
+      color: #FF6B00;
+      font-size: 14px;
+    }
+
+    .route-body {
+      padding: 10px 12px;
+    }
+
+    .timeline-item {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(58, 58, 90, 0.5);
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .timeline-date {
+      font-size: 12px;
+      color: #4FC3F7;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .timeline-content {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .timeline-content li {
+      margin-left: 16px;
+      margin-bottom: 3px;
+    }
+
+    .highlight {
+      color: #7CFC00;
+      font-weight: bold;
+    }
+
+    .spark-note {
+      background: rgba(156, 39, 176, 0.15);
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .spark-note-title {
+      color: #BA68C8;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .spark-table {
+      width: 100%;
+      font-size: 12px;
+    }
+
+    .spark-table td {
+      padding: 4px 0;
+    }
+
+    .spark-count {
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    /* ========== 底部 ========== */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #888899;
+      border-top: 1px solid #3A3A5A;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部紧凑区 -->
+  <div class="header">
+    <div class="header-row">
+      <div class="boss-info">
+        <div class="boss-name">团本总览</div>
+        <span class="raid-tag">团本</span>
+        <span class="exp-tag">Midnight S1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 口诀大字报 -->
+  <div class="mantra">
+    <div class="mantra-content">
+      虚空尖塔六Boss 阿福扎恩开门守<br>
+      双龙议会三圣骑 宇宙之冠尾王愁<br>
+      T套二五各部位 护甲分类记心头<br>
+      火花法杖两路线 稳步提升不用愁
+    </div>
+  </div>
+
+  <!-- Boss 列表 - 虚空尖塔 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🗼</span>
+      <span class="card-title">虚空尖塔 (Voidspire)</span>
+    </div>
+    <div class="card-body">
+      <div class="boss-grid">
+        <div class="boss-item">
+          <div class="boss-number">1</div>
+          <div class="boss-text">
+            <div class="boss-cn">元首阿福扎恩</div>
+            <div class="boss-en">Imperator Averzian</div>
+          </div>
+        </div>
+        <div class="boss-item">
+          <div class="boss-number">2</div>
+          <div class="boss-text">
+            <div class="boss-cn">弗拉希乌斯</div>
+            <div class="boss-en">Vorasius</div>
+          </div>
+        </div>
+        <div class="boss-item">
+          <div class="boss-number">3</div>
+          <div class="boss-text">
+            <div class="boss-cn">堕落之王萨尔哈达尔</div>
+            <div class="boss-en">Fallen-King Salhadaar</div>
+          </div>
+        </div>
+        <div class="boss-item">
+          <div class="boss-number">4</div>
+          <div class="boss-text">
+            <div class="boss-cn">威厄高尔和艾佐拉克</div>
+            <div class="boss-en">双龙议会</div>
+          </div>
+        </div>
+        <div class="boss-item">
+          <div class="boss-number">5</div>
+          <div class="boss-text">
+            <div class="boss-cn">光芒先锋军</div>
+            <div class="boss-en">三圣骑议会</div>
+          </div>
+        </div>
+        <div class="boss-item">
+          <div class="boss-number boss-final">6</div>
+          <div class="boss-text">
+            <div class="boss-cn">宇宙之冠</div>
+            <div class="boss-en">虚空奥蕾莉亚 · 尾王</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boss 列表 - 幽梦裂隙 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🌙</span>
+      <span class="card-title">幽梦裂隙 (The Dreamrift)</span>
+    </div>
+    <div class="card-body">
+      <div class="boss-grid">
+        <div class="boss-item">
+          <div class="boss-number boss-final">1</div>
+          <div class="boss-text">
+            <div class="boss-cn">奇美鲁斯</div>
+            <div class="boss-en">Chimaerus · 掉落衣服</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 难度分级 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📊</span>
+      <span class="card-title">难度分级</span>
+    </div>
+    <div class="card-body">
+      <div class="difficulty-list">
+        <div class="diff-item">
+          <div class="diff-name">元首阿福扎恩</div>
+          <div class="diff-stars">★</div>
+          <div class="diff-note">开门Boss</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-name">弗拉希乌斯</div>
+          <div class="diff-stars">★</div>
+          <div class="diff-note">深渊掠食者</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-name">奇美鲁斯</div>
+          <div class="diff-stars">★</div>
+          <div class="diff-note">幽梦裂隙 · 掉落衣服</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-name">堕落之王</div>
+          <div class="diff-stars">★★</div>
+          <div class="diff-note">11.2剧情人物</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-name">双龙议会</div>
+          <div class="diff-stars">★★★</div>
+          <div class="diff-note">威厄高尔和艾佐拉克</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-name">光芒先锋军</div>
+          <div class="diff-stars">★★★★</div>
+          <div class="diff-note">三圣骑议会</div>
+        </div>
+        <div class="diff-item" style="background: rgba(255, 68, 68, 0.1);">
+          <div class="diff-name" style="color: #FF4444;">宇宙之冠 · 尾王</div>
+          <div class="diff-stars">★★★★★</div>
+          <div class="diff-note">虚空奥蕾莉亚</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T套掉落 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">👕</span>
+      <span class="card-title">T套装备掉落</span>
+    </div>
+    <div class="card-body">
+      <div class="warning-box">
+        <p>⚠️ 本赛季T套按 <strong>护甲类型</strong> 分类，非职业分组！</p>
+      </div>
+
+      <div class="tier-section">
+        <div class="tier-title">🛡️ 护甲类型</div>
+        <table class="tier-table">
+          <tr>
+            <td><span class="armor-tag armor-cloth">布甲</span></td>
+            <td>术士 · 牧师 · 法师</td>
+          </tr>
+          <tr>
+            <td><span class="armor-tag armor-leather">皮甲</span></td>
+            <td>DH · 盗贼 · 武僧 · 德鲁伊</td>
+          </tr>
+          <tr>
+            <td><span class="armor-tag armor-mail">锁甲</span></td>
+            <td>唤魔师 · 猎人 · 萨满</td>
+          </tr>
+          <tr>
+            <td><span class="armor-tag armor-plate">板甲</span></td>
+            <td>DK · 圣骑 · 战士</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="tier-section">
+        <div class="tier-title">📍 Boss 掉落部位</div>
+        <table class="tier-table">
+          <tr><th>Boss</th><th>部位</th></tr>
+          <tr><td>幽梦裂隙老一</td><td>衣服</td></tr>
+          <tr><td>虚空尖塔老二</td><td>手套</td></tr>
+          <tr><td>虚空尖塔老三</td><td>肩膀</td></tr>
+          <tr><td>虚空尖塔老四</td><td>腿部</td></tr>
+          <tr><td>虚空尖塔老五</td><td>头盔</td></tr>
+        </table>
+        <p style="font-size: 12px; color: #888899; margin-top: 8px;">💡 4件套后，打团额外掉落套装转换次数</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 制造业规划 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🔨</span>
+      <span class="card-title">火花 & 制造业规划</span>
+    </div>
+    <div class="card-body">
+      <div class="spark-note">
+        <div class="spark-note-title">⚡ 火花消耗参考</div>
+        <table class="spark-table">
+          <tr><td>双手法杖</td><td><span class="spark-count">4个</span></td></tr>
+          <tr><td>单手武器</td><td><span class="spark-count">2个</span></td></tr>
+          <tr><td>护腕/披风等防具</td><td><span class="spark-count">2个</span></td></tr>
+        </table>
+        <p style="font-size: 11px; color: #FF6B6B; margin-top: 6px;">⚠️ 5星必须用满星材料，否则需专注点</p>
+      </div>
+
+      <!-- 路线一 -->
+      <div class="route-card">
+        <div class="route-header">🅰️ 路线一：火花做法杖（稳定提升）</div>
+        <div class="route-body">
+          <div class="timeline-item">
+            <div class="timeline-date">本周</div>
+            <div class="timeline-content">
+              <li>1件 <span class="highlight">246 老兵奥纹内衬美化</span>（推荐护腕）</li>
+              <li>优先升名望装部位到 250</li>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">3/19 H团本</div>
+            <div class="timeline-content">
+              <li><span class="highlight">259 双手法杖狩猎美化</span>（4火花）</li>
+              <li>纹章升级套装、重要SP</li>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">3/26 M团本×2 + 大秘境</div>
+            <div class="timeline-content">
+              <li><span class="highlight">259法杖再造到 285</span></li>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">4/2 最后一个M团</div>
+            <div class="timeline-content">
+              <li><span class="highlight">285 护腕奥纹内衬美化</span>（2火花）</li>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 路线二 -->
+      <div class="route-card">
+        <div class="route-header">🅱️ 路线二：不做法杖（赌低保/团本法杖）</div>
+        <div class="route-body">
+          <div class="timeline-item">
+            <div class="timeline-date">本周</div>
+            <div class="timeline-content">
+              <li>2件 <span class="highlight">246 老兵奥纹内衬美化</span>（护腕+披风）</li>
+              <li>优先升武器、名望装到 250</li>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">3/19 H团本</div>
+            <div class="timeline-content">
+              <li><span class="highlight">263 勇士法杖升满</span></li>
+              <li>做一个 259 奥纹内衬护腕（2火花）</li>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">3/26 M团本×2 + 大秘境</div>
+            <div class="timeline-content">
+              <li><span class="highlight">276 英雄法杖升满</span></li>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">4/2 最后一个M团</div>
+            <div class="timeline-content">
+              <li>看低保是否出法杖 → 升满 289</li>
+              <li>或击杀尾王获取<span class="highlight">唯一团本法杖</span></li>
+              <li>剩余4火花可做 285 狩猎法杖</li>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size: 12px; color: #888899; text-align: center; margin-top: 10px;">
+        📌 来源：主播雨帆 · 仅供参考
+      </p>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    攻略：奶个爪爪 · Midnight S1 · 2026-03-19
+  </div>
+
+</body>
+</html>
