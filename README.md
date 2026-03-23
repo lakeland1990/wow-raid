@@ -68,30 +68,28 @@ npm run build
 npm run build:gh
 ```
 
-生成 `dist/` 目录，包含首页和所有攻略 HTML（带返回按钮）。
+生成到 `/opt/workpool/wow-raid-gh` 目录（git worktree），包含首页和所有攻略 HTML（带返回按钮）。
 
 ### 部署到 GitHub Pages
+
+使用 git worktree 方式，首次设置：
+
+```bash
+# 创建 gh-pages worktree（仅需一次）
+git worktree add /opt/workpool/wow-raid-gh gh-pages
+```
+
+日常部署：
 
 ```bash
 # 1. 构建
 npm run build:gh
 
-# 2. 进入 dist 目录，初始化 git 并推送
-cd dist
-git init -b main
-git add .
-git commit -m "deploy"
-git remote add origin https://github.com/<用户名>/wow-raid.git
-git push -f origin main:gh-pages
-
-# 3. 清理
-rm -rf .git
-cd ..
+# 2. 部署
+cd /opt/workpool/wow-raid-gh && git add -A && git commit -m "deploy" && git push origin gh-pages
 ```
 
-然后在 GitHub 仓库设置中启用 Pages，选择 `gh-pages` 分支。
-
-访问地址：`https://<用户名>.github.io/wow-raid/`
+访问地址：**https://wow.qifan.org/**
 
 ## 项目结构
 

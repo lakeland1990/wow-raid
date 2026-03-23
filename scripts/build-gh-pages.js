@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PROJECT_DIR = process.cwd();
-const DIST_DIR = path.join(PROJECT_DIR, 'dist');
+const DIST_DIR = '/opt/workpool/wow-raid-gh';
 const DOCS_DIR = path.join(PROJECT_DIR, 'docs');
 const BOSSES_DIR = path.join(DOCS_DIR, 'bosses');
 
@@ -376,11 +376,17 @@ function main() {
   console.log('\n🚀 构建 GitHub Pages 发布版本');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
 
-  // 清理并创建 dist 目录
+  // 清理目录内容但保留 .git（worktree 需要）
   if (fs.existsSync(DIST_DIR)) {
-    fs.rmSync(DIST_DIR, { recursive: true });
+    const entries = fs.readdirSync(DIST_DIR);
+    for (const entry of entries) {
+      if (entry !== '.git') {
+        fs.rmSync(path.join(DIST_DIR, entry), { recursive: true });
+      }
+    }
+  } else {
+    fs.mkdirSync(DIST_DIR, { recursive: true });
   }
-  fs.mkdirSync(DIST_DIR, { recursive: true });
 
   // 查找所有 Boss 目录
   const bossDirs = findBossDirs();
